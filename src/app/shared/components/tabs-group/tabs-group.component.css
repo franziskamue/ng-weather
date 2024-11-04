@@ -1,0 +1,64 @@
+.close {
+    cursor: pointer;
+}
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.tabs-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.tabs {
+    display: flex;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    margin-right: 4px;
+    color: white;
+    background-color: #2d5c88;
+    cursor: pointer;
+}
+
+.tab.active {
+    background-color: #4a79a3;
+    font-weight: bold;
+}
+
+.tab button {
+    background: none;
+    border: none;
+    color: white;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tab button:hover {
+    color: #ccc;
+}
+
+.content {
+    padding: 16px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+}
+
+.content p {
+    margin: 4px 0;
+}
+
+.content a {
+    color: #2d5c88;
+    text-decoration: none;
+}
+
+.content a:hover {
+    text-decoration: underline;
+}

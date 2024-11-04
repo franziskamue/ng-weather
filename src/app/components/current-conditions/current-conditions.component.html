@@ -1,0 +1,20 @@
+@if (tabContents().length > 0 && currentConditionsForLocations().length > 0) {
+    <app-tabs-group [tabContents]="tabContents()" (removeTabEmitter)="removeWeatherTab($event)" #tabsGroupComponent>
+        @if (currentConditionsForLocations()[tabsGroupComponent.selectedTabIndex]; as selectedCondition) {
+            <div class="weather-content">
+                <div class="weather-description">
+                    <div class="weather-heading"><p>Current conditions: {{selectedCondition.data.weather[0]?.description}}</p></div>
+                    <div class="weather-heading"><p>Temperatures today:</p></div>
+                    <p>Current {{ selectedCondition.data.main.temp }} °F - Max {{ selectedCondition.data.main.temp_max }} - Min {{ selectedCondition.data.main.temp_min }}</p>
+                    <p>
+                        <a [routerLink]="['/forecast', selectedCondition.zip]">Show 5-day forecast
+                            for {{ selectedCondition.data.name }}</a>
+                    </p>
+                </div>
+                <div>
+                    <img [src]="weatherService.getWeatherIcon(selectedCondition.data.weather[0].id)" alt="weatherimage"/>
+                </div>
+            </div>
+        }
+    </app-tabs-group>
+}

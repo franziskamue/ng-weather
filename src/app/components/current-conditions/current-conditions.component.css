@@ -1,0 +1,12 @@
+.weather-content {
+    display: flex;
+}
+
+.weather-description {
+    margin-right: 5em;
+}
+
+.weather-heading {
+    font-size: 1.4em;
+
+}

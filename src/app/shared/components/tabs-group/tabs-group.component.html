@@ -1,0 +1,17 @@
+<div class="tabs-container">
+    <!-- Tabs Section -->
+    <div class="tabs">
+        <div *ngFor="let tab of tabContents; let i = index"
+             [class.active]="i === selectedTabIndex"
+             (click)="selectTab(i)"
+             class="tab">
+            {{tab.tabName}}
+            <button (click)="removeTab(i)">X</button>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+        <ng-content></ng-content>
+    </div>
+</div>
