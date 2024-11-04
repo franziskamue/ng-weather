@@ -853,7 +853,7 @@ module.exports = "<div class=\"well\">\n  <h2>Enter a zipcode:</h2>\n  <input ty
 /***/ ((module) => {
 
 "use strict";
-module.exports = "<div class=\"tabs-container\">\n    <!-- Tabs Section -->\n    <div class=\"tabs\">\n        <div *ngFor=\"let tab of tabContents; let i = index\"\n             [class.active]=\"i === selectedTabIndex\"\n             (click)=\"selectTab(i)\"\n             class=\"tab\">\n            {{tab.tabName}}\n            <button (click)=\"removeTab(i, $event)\">X</button>\n        </div>\n    </div>\n\n    <!-- Content Section -->\n    <div class=\"content\">\n        <ng-content></ng-content>\n    </div>\n</div>\n";
+module.exports = "<div class=\"tabs-container\">\n    <!-- Tabs Section -->\n    <div class=\"tabs\">\n        <div *ngFor=\"let tab of tabContents; let i = index\"\n             [class.active]=\"i === selectedTabIndex\"\n             (click)=\"selectTab(i)\"\n             class=\"tab\">\n            {{tab.tabName}}\n            <button (click)=\"removeTab(i)\">X</button>\n        </div>\n    </div>\n\n    <!-- Content Section -->\n    <div class=\"content\">\n        <ng-content></ng-content>\n    </div>\n</div>\n";
 
 /***/ })
 
