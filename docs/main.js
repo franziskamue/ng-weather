@@ -171,7 +171,8 @@ let CurrentConditionsComponent = class CurrentConditionsComponent {
       return this.currentConditionsForLocations().map(conditionAndZip => {
         return {
           tabName: `${conditionAndZip.data.name} (${conditionAndZip.zip})`,
-          tabIdentifier: conditionAndZip.zip
+          tabIdentifier: conditionAndZip.zip,
+          data: conditionAndZip
         };
       });
     });
@@ -362,6 +363,9 @@ let TabsGroupComponent = class TabsGroupComponent {
   }
   static #_ = this.propDecorators = {
     tabContents: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
+    }],
+    template: [{
       type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
     }],
     removeTabEmitter: [{
@@ -809,7 +813,7 @@ module.exports = "<router-outlet></router-outlet>\n";
 /***/ ((module) => {
 
 "use strict";
-module.exports = "@if (tabContents().length > 0 && currentConditionsForLocations().length > 0) {\n    <app-tabs-group [tabContents]=\"tabContents()\" (removeTabEmitter)=\"removeWeatherTab($event)\" #tabsGroupComponent>\n        @if (currentConditionsForLocations()[tabsGroupComponent.selectedTabIndex]; as selectedCondition) {\n            <div class=\"weather-content\">\n                <div class=\"weather-description\">\n                    <div class=\"weather-heading\"><p>Current conditions: {{selectedCondition.data.weather[0]?.description}}</p></div>\n                    <div class=\"weather-heading\"><p>Temperatures today:</p></div>\n                    <p>Current {{ selectedCondition.data.main.temp }} °F - Max {{ selectedCondition.data.main.temp_max }} - Min {{ selectedCondition.data.main.temp_min }}</p>\n                    <p>\n                        <a [routerLink]=\"['/forecast', selectedCondition.zip]\">Show 5-day forecast\n                            for {{ selectedCondition.data.name }}</a>\n                    </p>\n                </div>\n                <div>\n                    <img [src]=\"weatherService.getWeatherIcon(selectedCondition.data.weather[0].id)\" alt=\"weatherimage\"/>\n                </div>\n            </div>\n        }\n    </app-tabs-group>\n}\n";
+module.exports = "@if (tabContents().length > 0 && currentConditionsForLocations().length > 0) {\n    <app-tabs-group\n            [tabContents]=\"tabContents()\"\n            (removeTabEmitter)=\"removeWeatherTab($event)\"\n            [template]=\"currentConditionsTemplate\">\n    </app-tabs-group>\n}\n\n<ng-template #currentConditionsTemplate let-selectedCondition>\n    <div class=\"weather-content\">\n        <div class=\"weather-description\">\n            <div class=\"weather-heading\"><p>Current conditions: {{selectedCondition.data.weather[0]?.description}}</p></div>\n            <div class=\"weather-heading\"><p>Temperatures today:</p></div>\n            <p>Current {{ selectedCondition.data.main.temp }} °F - Max {{ selectedCondition.data.main.temp_max }} - Min {{ selectedCondition.data.main.temp_min }}</p>\n            <p>\n                <a [routerLink]=\"['/forecast', selectedCondition.zip]\">Show 5-day forecast\n                    for {{ selectedCondition.data.name }}</a>\n            </p>\n        </div>\n        <div>\n            <img [src]=\"weatherService.getWeatherIcon(selectedCondition.data.weather[0].id)\" alt=\"weatherimage\"/>\n        </div>\n    </div>\n</ng-template>\n";
 
 /***/ }),
 
@@ -853,7 +857,7 @@ module.exports = "<div class=\"well\">\n  <h2>Enter a zipcode:</h2>\n  <input ty
 /***/ ((module) => {
 
 "use strict";
-module.exports = "<div class=\"tabs-container\">\n    <!-- Tabs Section -->\n    <div class=\"tabs\">\n        <div *ngFor=\"let tab of tabContents; let i = index\"\n             [class.active]=\"i === selectedTabIndex\"\n             (click)=\"selectTab(i)\"\n             class=\"tab\">\n            {{tab.tabName}}\n            <button (click)=\"removeTab(i)\">X</button>\n        </div>\n    </div>\n\n    <!-- Content Section -->\n    <div class=\"content\">\n        <ng-content></ng-content>\n    </div>\n</div>\n";
+module.exports = "<div class=\"tabs-container\">\n    <!-- Tabs Section -->\n    <div class=\"tabs\">\n        <div *ngFor=\"let tab of tabContents; let i = index\"\n             [class.active]=\"i === selectedTabIndex\"\n             (click)=\"selectTab(i)\"\n             class=\"tab\">\n            {{tab.tabName}}\n            <button (click)=\"removeTab(i)\">X</button>\n        </div>\n    </div>\n\n    <!-- Content Section -->\n    <div class=\"content\">\n        <ng-container\n                *ngTemplateOutlet=\"template; context: { $implicit: tabContents[selectedTabIndex].data }\">\n        </ng-container>\n    </div>\n</div>\n";
 
 /***/ })
 
