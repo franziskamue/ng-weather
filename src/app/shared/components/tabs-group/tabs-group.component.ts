@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
 import {TabContent} from "../../types/tab-content.type";
 
 @Component({
@@ -8,6 +8,7 @@ import {TabContent} from "../../types/tab-content.type";
 })
 export class TabsGroupComponent {
     @Input() tabContents: TabContent[] = [];
+    @Input() template!: TemplateRef<any>;
     @Output() removeTabEmitter: EventEmitter<number> = new EventEmitter<number>();
 
     protected selectedTabIndex = 0;

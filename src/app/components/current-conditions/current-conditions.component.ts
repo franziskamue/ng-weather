@@ -28,7 +28,8 @@ export class CurrentConditionsComponent {
     return this.currentConditionsForLocations().map(conditionAndZip => {
       return {
         tabName: `${conditionAndZip.data.name} (${conditionAndZip.zip})`,
-        tabIdentifier: conditionAndZip.zip
+        tabIdentifier: conditionAndZip.zip,
+        data: conditionAndZip
       }
     })
   })

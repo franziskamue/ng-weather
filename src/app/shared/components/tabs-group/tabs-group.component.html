@@ -12,6 +12,8 @@
 
     <!-- Content Section -->
     <div class="content">
-        <ng-content></ng-content>
+        <ng-container
+                *ngTemplateOutlet="template; context: { $implicit: tabContents[selectedTabIndex].data }">
+        </ng-container>
     </div>
 </div>
